@@ -1,0 +1,118 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 360,
+    "height": 300,
+    "data": {
+      "url": "https://raw.githubusercontent.com/RuohaoZhao/FIT3179_HM10/main/worldometer_data.csv"
+    },
+    "params": [
+      {
+        "name": "Continent_selection",
+        "bind": {
+          "input": "select",
+          "options": [
+            null,
+            "North America",
+            "South America",
+            "Asia",
+            "Europe",
+            "Africa",
+            "Australia/Oceania"
+          ],
+          "labels": [
+            "Show All",
+            "North America",
+            "South America",
+            "Asia",
+            "Europe",
+            "Africa",
+            "Australia/Oceania"
+          ],
+          "name": "Continent Selection: "
+        }
+      }
+    ],
+    "transform": [
+      {"filter": "datum.ActiveCases > 0"},
+      {"filter": "datum.TotalDeaths > 0"},
+      {
+        "filter": "Continent_selection == null || datum.Continent == Continent_selection"
+      },
+      {
+        "calculate": "datum.TotalCases/datum.Population * 100",
+        "as": "Comfirmed Cases per 100 Population"
+      }
+    ],
+    "selection": {
+      "continent_highlight": {
+        "type": "multi",
+        "fields": ["Continent"],
+        "bind": "legend"
+      }
+    },
+    "mark": "circle",
+    "encoding": {
+      "x": {
+        "field": "TotalCases",
+        "type": "quantitative",
+        "title": "Confirmed Cases",
+        "axis": {"tickCount": 7},
+        "scale": {"type": "log", "domain": [1, 10000000]}
+      },
+      "y": {
+        "field": "TotalDeaths",
+        "type": "quantitative",
+        "title": "Number of Deaths",
+        "axis": {"tickCount": 6},
+        "scale": {"type": "log", "domain": [1, 1000000]}
+      },
+      "color": {
+        "field": "Continent",
+        "type": "nominal",
+        "scale": {
+          "domain": [
+            "North America",
+            "South America",
+            "Asia",
+            "Europe",
+            "Africa",
+            "Australia/Oceania"
+          ],
+          "range": [
+            "#1170AA",
+            "#FC7D0B",
+            "#A3A7B9",
+            "#57606C",
+            "#5FA2CE",
+            "#C85200"
+          ]
+        }
+      },
+      "opacity": {
+        "condition": {"selection": "continent_highlight", "value": 0.6},
+        "value": 0.2
+      },
+      "size": {
+        "field": "Population",
+        "type": "quantitative",
+        "scale": {
+          "type": "threshold",
+          "domain": [1000000, 10000000, 50000000, 100000000, 500000000],
+          "range": [10, 50, 150, 200, 300, 400]
+        },
+        "legend": {"format": ".1s"}
+      },
+      "tooltip": [
+        {"field": "Country/Region", "type": "nominal", "title":"Country"},
+        {"field": "TotalCases", "type": "quantitative", "format": ","},
+        {"field": "ActiveCases", "type": "quantitative", "format": ","},
+        {"field": "TotalDeaths", "type": "quantitative", "format": ","},
+        {"field": "TotalRecovered", "type": "quantitative", "format": ","},
+        {
+          "field": "Comfirmed Cases per 100 Population",
+          "type": "quantitative",
+          "format": ".2f"
+        }
+      ]
+    }
+  }

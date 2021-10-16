@@ -1,0 +1,113 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "https://raw.githubusercontent.com/RuohaoZhao/FIT3179_Visualisation2/main/worldometer_data.csv"
+    },
+    "hconcat": [
+        {
+
+            "data": {
+                "url": "https://raw.githubusercontent.com/RuohaoZhao/FIT3179_Visualisation2/main/worldometer_data.csv"
+            },
+            "transform": [
+                {
+                    "filter": "datum.Continent != ''"
+                }
+            ],
+            "width": 150,
+            "height": 200,
+            "mark": "bar",
+            "encoding": {
+                "x": {
+                    "field": "Continent",
+                    "type": "nominal",
+                    "axis": {
+                        "title": " ",
+                        "grid": false
+                    },
+                    "sort": {
+                        "field": "TotalCases",
+                        "op": "sum",
+                        "order": "descending"
+                    }
+                },
+                "y": {
+                    "field": "TotalCases",
+                    "type": "quantitative",
+                    "title": "Total Cases population",
+                    "axis": {
+                        "grid": false
+                    }
+                },
+                "color": {
+                    "field": "Continent",
+                    "scale": {
+                        "range": [
+                            "#1170AA",
+                            "#FC7D0B",
+                            "#A3A7B9",
+                            "#57606C",
+                            "#5FA2CE",
+                            "#C85200"
+                        ]
+                    }
+                },
+                "opacity": {
+                    "value": 0.7
+                }
+            }
+        },
+        {
+            "data": {
+                "url": "https://raw.githubusercontent.com/RuohaoZhao/FIT3179_Visualisation2/main/worldometer_data.csv"
+            },
+            "transform": [
+                {
+                    "filter": "datum.Continent != ''"
+                }
+            ],
+            "width": 150,
+            "height": 200,
+            "mark": "bar",
+            "encoding": {
+                "x": {
+                    "field": "Continent",
+                    "type": "nominal",
+                    "axis": {
+                        "title": " ",
+                        "grid": false
+                    },
+                    "sort": {
+                        "field": "TotalDeaths",
+                        "op": "sum",
+                        "order": "descending"
+                    }
+                },
+                "y": {
+                    "field": "TotalDeaths",
+                    "type": "quantitative",
+                    "title": "Total Deaths population",
+                    "axis": {
+                        "grid": false
+                    }
+                },
+                "color": {
+                    "field": "Continent",
+                    "scale": {
+                        "range": [
+                            "#1170AA",
+                            "#FC7D0B",
+                            "#A3A7B9",
+                            "#57606C",
+                            "#5FA2CE",
+                            "#C85200"
+                        ]
+                    }
+                },
+                "opacity": {
+                    "value": 0.7
+                }
+            }
+        }
+    ]
+  }
