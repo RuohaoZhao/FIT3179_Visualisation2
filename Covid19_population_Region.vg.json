@@ -71,12 +71,12 @@
         "type": "nominal",
         "scale": {
           "domain": [
-            "North America",
-            "South America",
-            "Asia",
-            "Europe",
             "Africa",
-            "Australia/Oceania"
+            "Asia",
+            "Australia/Oceania",
+            "Europe",
+            "North America",
+            "South America"
           ],
           "range": [
             "#1170AA",
